@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>IGNOU Percentage IQ</title>
+        <style>
+            :root {
+                color-scheme: light;
+                --primary: #125092;
+                --primary-soft: #eaf2fb;
+                --border: #dbe5f1;
+                --bg: #f8fbff;
+                --text: #0f172a;
+                --muted: #475569;
+                --success: #15803d;
+                --success-soft: rgba(21, 128, 61, 0.12);
+                --warning: #b45309;
+                --warning-soft: rgba(180, 83, 9, 0.12);
+                --danger: #b91c1c;
+                --danger-soft: rgba(185, 28, 28, 0.12);
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            html,
+            body {
+                margin: 0;
+                width: 360px;
+                font-family:
+                    Inter,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    sans-serif;
+                background: #ffffff;
+                color: var(--text);
+                overflow: hidden;
+            }
+
+            .app {
+                padding: 0;
+            }
+
+            .shell {
+                background: #ffffff;
+                overflow: hidden;
+            }
+
+            .header {
+                padding: 10px 12px;
+                background: var(--primary);
+                color: #ffffff;
+            }
+
+            .header h1 {
+                margin: 0;
+                font-size: 17px;
+                font-weight: 700;
+            }
+
+            .header p {
+                margin: 3px 0 0;
+                font-size: 13px;
+                line-height: 1.35;
+                color: rgba(255, 255, 255, 0.86);
+            }
+
+            .section {
+                padding: 12px 10px;
+                border-top: 1px solid var(--border);
+            }
+
+            .section:first-of-type {
+                border-top: 0;
+            }
+
+            .section-title {
+                margin: 0 0 10px;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--muted);
+            }
+
+            .status {
+                display: flex;
+                align-items: flex-start;
+                gap: 7px;
+                padding: 8px 9px;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                background: #ffffff;
+            }
+
+            .status-dot {
+                width: 10px;
+                height: 10px;
+                margin-top: 4px;
+                border-radius: 999px;
+                background: var(--warning);
+                flex: 0 0 auto;
+            }
+
+            .status-dot.ready {
+                background: var(--success);
+            }
+
+            .status-dot.offsite {
+                background: var(--warning);
+            }
+
+            .status-dot.error {
+                background: var(--danger);
+            }
+
+            .status strong,
+            .label {
+                display: block;
+                font-size: 12px;
+                font-weight: 700;
+                color: var(--muted);
+            }
+
+            .status span {
+                display: block;
+                font-size: 12px;
+                line-height: 1.35;
+                color: var(--text);
+            }
+
+            .value,
+            .meta {
+                display: block;
+                font-size: 12px;
+                line-height: 1.35;
+                margin-top: 8px;
+                color: var(--text) !important;
+                font-weight: 600;
+            }
+
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 6px;
+            }
+
+            .metric {
+                padding: 8px 9px;
+                border-radius: 8px;
+                border: 1px solid var(--border);
+                background: #ffffff;
+            }
+
+            .metric strong {
+                display: block;
+                margin-top: 2px;
+                font-size: 18px;
+                line-height: 1.1;
+            }
+
+            .detail-list {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 6px;
+            }
+
+            .detail {
+                padding: 7px 9px;
+                border-radius: 8px;
+                border: 1px solid var(--border);
+                background: #ffffff;
+            }
+
+            .detail.full {
+                grid-column: 1 / -1;
+            }
+
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                padding: 4px 7px;
+                border-radius: 6px;
+                font-size: 12px;
+                font-weight: 700;
+                border: 1px solid var(--border);
+            }
+
+            .actions {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 6px;
+            }
+
+            button {
+                appearance: none;
+                border: 1px solid transparent;
+                border-radius: 6px;
+                padding: 7px 9px;
+                font: inherit;
+                font-size: 12px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .btn-primary {
+                background: var(--primary);
+                color: #ffffff;
+            }
+
+            .btn-secondary {
+                background: #ffffff;
+                color: var(--primary);
+                border-color: var(--primary);
+            }
+
+            .empty {
+                padding: 8px 9px;
+                border-radius: 8px;
+                border: 1px dashed var(--border);
+                font-size: 12px;
+                line-height: 1.35;
+                color: var(--muted);
+                background: #ffffff;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <div class="shell">
+                <div class="header">
+                    <h1>IGNOU Percentage IQ</h1>
+                    <p>
+                        Reads your IGNOU grade card page and computes the result
+                        directly from official marks.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <p class="section-title">Page Status</p>
+                    <div id="pageStatus" class="status">
+                        <div class="status-dot"></div>
+                        <div>
+                            <strong>Checking current tab</strong>
+                            <span>Loading extension context...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <p class="section-title">Last Result</p>
+                    <div id="resultContent" class="empty">
+                        No scanned grade card yet. Open your IGNOU result page
+                        and let the extension read the table.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <p class="section-title">Actions</p>
+                    <div class="actions">
+                        <button id="openGradecard" class="btn-primary">
+                            Open Grade Card
+                        </button>
+                        <button id="refreshTab" class="btn-secondary">
+                            Refresh Scan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="popup.js"></script>
+    </body>
+</html>
