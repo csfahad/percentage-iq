@@ -1,6 +1,6 @@
 # IGNOU Percentage IQ
 
-Chrome Extension (Manifest V3) that reads IGNOU grade card data directly on `https://gradecard.ignou.ac.in/` and calculates percentage using programme-specific rules.
+Chrome Extension (Manifest V3) that reads IGNOU grade card data directly on `https://gradecard.ignou.ac.in/gradecard` and calculates percentage using programme-specific rules.
 
 ## Features
 
@@ -17,23 +17,3 @@ Chrome Extension (Manifest V3) that reads IGNOU grade card data directly on `htt
     - Copy summary + print actions
 - Popup fallback calculator for manual entry
 - Uses `chrome.storage.local` for login-to-result state handoff and popup persistence
-
-## File Structure
-
-```text
-ignou-percentage-iq/
-├── manifest.json
-├── content/
-│   ├── content.js
-│   ├── scraper.js
-│   ├── calculator.js
-│   └── ui.js
-├── popup/
-│   ├── popup.html
-│   └── popup.js
-├── background/
-│   └── service_worker.js
-├── assets/
-│   └── icon.png
-└── README.md
-```
